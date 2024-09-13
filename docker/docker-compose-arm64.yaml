@@ -1,0 +1,23 @@
+##########################################################
+# DOCKER COMPOSE FILE (ROBOT IMAGE, ARM64)
+##########################################################
+
+services:
+  agrobot:
+    image: snelsondurrant/agrobot:arm64
+    container_name: agrobot
+    user: agrobot
+    network_mode: host
+    privileged: true
+    volumes:
+      - /home/agrobot/bag:/home/agrobot/ros2_ws/bag:rw
+      - /home/agrobot/config:/home/agrobot/config:rw
+      - /home/agrobot/AgrobotRPi:/home/agrobot/ros2_ws
+      - /home/agrobot/AgrobotTeensy:/home/agrobot/teensy_ws
+      - /etc/localtime:/etc/localtime:ro # Syncs the container's time with the host
+      - /dev:/dev:rw
+      - /run/udev:/run/udev:ro
+    command: /bin/bash
+    stdin_open: true  # Equivalent to -it in docker run
+    tty: true  # Equivalent to -it in docker run
+    restart: always  # Optional: Keeps the container running after exit unless you want it to be removed like with --rm

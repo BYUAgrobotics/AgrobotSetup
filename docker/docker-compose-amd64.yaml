@@ -1,0 +1,29 @@
+##########################################################
+# DOCKER COMPOSE FILE (DEVELOPMENT IMAGE, AMD64)
+# - Feel free to modify this locally to match your
+#   personal computer
+##########################################################
+
+services:
+  agrobot:
+    image: snelsondurrant/agrobot:amd64
+    container_name: agrobot
+    user: agrobot
+    network_mode: host
+    environment:
+      DISPLAY: :0 # Required for GUI applications
+      MPLBACKEND: Qt5Agg # Required for GUI applications
+    privileged: true
+    volumes:
+      - ~/bag:/home/agrobot/ros2_ws/bag:rw
+      - ~/AgrobotSetup/config:/home/agrobot/config:rw
+      - ~/AgrobotRPi:/home/agrobot/ros2_ws
+      - ~/AgrobotTeensy:/home/agrobot/teensy_ws
+      - /etc/localtime:/etc/localtime:ro # Syncs the container's time with the host
+      - /run/udev:/run/udev:ro
+      - /dev:/dev:rw
+      - /tmp/.X11-unix:/tmp/.X11-unix # Required for GUI applications
+    command: /bin/bash
+    stdin_open: true  # Equivalent to -it in docker run
+    tty: true  # Equivalent to -it in docker run
+    restart: always  # Optional: Keeps the container running after exit unless you want it to be removed like with --rm
