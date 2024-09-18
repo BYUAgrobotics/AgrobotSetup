@@ -1,4 +1,5 @@
 #!/bin/bash
+# Created by Nelson Durrant, Sep 2024
 
 ##########################################################
 # STARTS (OR ENTERS A RUNNING) TMUX SESSION
