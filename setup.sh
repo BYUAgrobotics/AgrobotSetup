@@ -40,22 +40,22 @@ sudo apt update
 sudo apt upgrade -y
 sudo apt install -y vim tmux git rsync
 
+# Set up volumes
+mkdir ~/bag
+cp -r ~/AgrobotSetup/config ~
+
 # Set up udev rules
-sudo cp /home/agrobot/AgrobotSetup/config/local/00-teensy.rules /etc/udev/rules.d/00-teensy.rules
+sudo ln -s /home/agrobot/AgrobotSetup/config/local/00-teensy.rules /etc/udev/rules.d/00-teensy.rules
 sudo udevadm control --reload-rules
 sudo udevadm trigger
 
 # Set up config files
-cp ~/AgrobotSetup/config/local/.tmux.conf ~/.tmux.conf
+sudo ln -s ~/AgrobotSetup/config/local/.tmux.conf ~/.tmux.conf
 
 # Copy repos from GitHub
 cd ~
 git clone https://github.com/BYUAgrobotics/AgrobotRPi.git
 git clone https://github.com/BYUAgrobotics/AgrobotTeensy.git
-
-# Set up volumes
-mkdir ~/bag
-cp -r ~/AgrobotSetup/config ~
 
 echo ""
 printInfo "Make sure to set the robot-specific params in 'robot_config.yaml' in '~/config' now"
